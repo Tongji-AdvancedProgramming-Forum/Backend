@@ -33,11 +33,14 @@ namespace Forum.Models
         public string Content { get; set; } = "";
 
         [Required]
-        [ReadOnly(true)]
-        public int Created_At { get; set; }
+        [Column(TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime Created_At { get; set; }
 
         [Required]
-        public int Updated_At { get; set; }
+        [Column(TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
+        public DateTime Updated_At { get; set; }
 
     }
 }

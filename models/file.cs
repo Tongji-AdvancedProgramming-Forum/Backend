@@ -23,9 +23,9 @@ namespace Forum.Models
 
         [Required]
         [Column(TypeName = "varchar(20)")]
-        public string Parent_Id { get; set; } = "";
+        public string Catalog_Id { get; set; } = "";
 
-        [ForeignKey("Parent_Id")]
+        [ForeignKey("Catalog_Id")]
         public Catalog parent_catalog { get; set; } = null!;
 
         [Required]

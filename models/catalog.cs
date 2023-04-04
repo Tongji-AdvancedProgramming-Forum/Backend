@@ -6,7 +6,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Forum.Models
 {
 
-    [Index("Sort_Id")]
     public class Catalog
     {
         [Key]
@@ -15,10 +14,8 @@ namespace Forum.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public string Id { get; set; } = "";
 
-        // 用于排序的Id。用于便于重新排列显示顺序
         [Required]
-        [Column(TypeName = "varchar(25)")]
-        public string Sort_Id { get; set; } = "";
+        public int Priority { get; set; }
 
         [Required]
         [Column(TypeName = "varchar(255)")]

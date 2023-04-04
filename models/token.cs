@@ -20,7 +20,12 @@ namespace Forum.Models
         public string User_Id { get; set; } = "";
 
         [Required]
+        [Column(TypeName = "text")]
+        public string Content { get; set; } = "";
+
+        [Required]
         [ReadOnly(true)]
-        public int Expired_At { get; set; }
+        [Column(TypeName = "TIMESTAMP")]
+        public DateTime Expired_At { get; set; }
     }
 }

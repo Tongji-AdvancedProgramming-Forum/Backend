@@ -37,11 +37,13 @@ namespace Forum.Models
         public string Content { get; set; } = "";
 
         [Required]
-        [ReadOnly(true)]
-        public int Created_At { get; set; }
+        [Column(TypeName = "TIMESTAMP")]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public DateTime Created_At { get; set; }
 
         [Required]
-        public int Updated_At { get; set; }
+        [Column(TypeName = "TIMESTAMP")]
+        public DateTime Updated_At { get; set; }
 
         // 类型。暂定1=提问,2=公告/助教答疑(不可回复)
         [Required]
