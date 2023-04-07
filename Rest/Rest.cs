@@ -9,12 +9,12 @@ namespace Forum.Rest
         {
             app.MapGet("/", () => "This Service Do Not Offer An Frontend Interface.");
             
-            RegisterUserService(app);
+            RegisterStudentService(app);
         }
 
-        private static void RegisterUserService(WebApplication app)
+        private static void RegisterStudentService(WebApplication app)
         {
-            app.MapGet("/hw", User_Service.HelloWorld);
+
         }
 
     }

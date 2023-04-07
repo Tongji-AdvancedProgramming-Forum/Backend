@@ -3,6 +3,9 @@ using MySql.Data.MySqlClient;
 
 namespace Forum.Entity
 {
+    /// <summary>
+    /// 论坛主数据库
+    /// </summary>
     public class ForumDb : DbContext
     {
         public ForumDb(DbContextOptions options) : base(options) { }
@@ -90,5 +93,14 @@ namespace Forum.Entity
             int result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_homework(@in_opno, @in_ipaddr, @in_comment)", opnoParam, ipaddrParam, commentParam);
             return result;
         }
+    }
+
+    /// <summary>
+    /// 运行时数据库，无需刻意维护
+    /// </summary>
+    public class RuntimeDb : DbContext
+    {
+        public RuntimeDb(DbContextOptions options) : base(options) { }
+
     }
 }
