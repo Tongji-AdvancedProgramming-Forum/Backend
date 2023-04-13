@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-using Forum.Entity;
+using Forum.Entities;
 using Forum.DTO.StudentService;
 
 namespace Forum.Service
@@ -32,7 +32,7 @@ namespace Forum.Service
             Student? student = await LoginAuth(request.UserName, request.PassWord);
             if (student == null)
             {
-                if (request.UserName != null && request.UserName.Length>0)
+                if (request.UserName != null && request.UserName.Length > 0)
                 {
                     await db.WriteLogLoginAsync(request.UserName, IPAddr, Agent, "登录失败");
                 }
@@ -50,9 +50,9 @@ namespace Forum.Service
                 Token = "",
                 UserData = new
                 {
-                    
+
                 }
-            }
+            };
         }
     }
 }
