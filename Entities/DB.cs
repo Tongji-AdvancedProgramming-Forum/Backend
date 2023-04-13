@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 
-namespace Forum.Entity
+namespace Forum.Entities
 {
     /// <summary>
     /// 论坛主数据库

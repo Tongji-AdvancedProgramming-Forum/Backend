@@ -5,9 +5,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 using MySql.Data.MySqlClient;
 
-namespace Forum.Entity
+namespace Forum.Entities
 {
-
     /*****************************************************************
     用户信息表
         stu_term         - 学期(与term表有外键关系)
@@ -115,47 +114,41 @@ namespace Forum.Entity
         /// <summary>
         /// 学生选修的课程1的课号 (与course表有外键关系)
         /// </summary>
-        [Required]
         [Column("stu_cno_1", TypeName = "char(16)")]
-        public string CourseNo_1 { get; set; } = "";
+        public string? CourseNo_1 { get; set; }
 
         /// <summary>
         /// 学生选修的课程1是否退课 ('0':正常 '1':已退课)
         /// </summary>
-        [Required]
         [DefaultValue("0")]
         [Column("stu_cno_1_is_del", TypeName = "enum(('0','1')")]
-        public string CourseNo_1_IsDel { get; set; } = "";
+        public string? CourseNo_1_IsDel { get; set; } 
 
         /// <summary>
         /// 学生选修的课程2的课号 (与course表有外键关系)
         /// </summary>
-        [Required]
         [Column("stu_cno_2", TypeName = "char(16)")]
-        public string CourseNo_2 { get; set; } = "";
+        public string? CourseNo_2 { get; set; } 
 
         /// <summary>
         /// 学生选修的课程2是否退课 ('0':正常 '1':已退课)
         /// </summary>
-        [Required]
         [DefaultValue("0")]
         [Column("stu_cno_2_is_del", TypeName = "enum(('0','1')")]
-        public string CourseNo_2_IsDel { get; set; } = "";
+        public string? CourseNo_2_IsDel { get; set; } 
 
         /// <summary>
         /// 学生选修的课程3的课号 (与course表有外键关系)
         /// </summary>
-        [Required]
         [Column("stu_cno_3", TypeName = "char(16)")]
-        public string CourseNo_3 { get; set; } = "";
+        public string? CourseNo_3 { get; set; } 
 
         /// <summary>
         /// 学生选修的课程3是否退课 ('0':正常 '1':已退课)
         /// </summary>
-        [Required]
         [DefaultValue("0")]
         [Column("stu_cno_3_is_del", TypeName = "enum(('0','1')")]
-        public string CourseNo_3_IsDel { get; set; } = "";
+        public string? CourseNo_3_IsDel { get; set; } 
 
         /// <summary>
         /// 该学生是否被删除 ('0':正常 '1':已删除)
@@ -168,9 +161,8 @@ namespace Forum.Entity
         /// <summary>
         /// 备注信息
         /// </summary>
-        [Required]
         [Column("stu_comment", TypeName = "text")]
-        public string Comment { get; set; } = "";
+        public string? Comment { get; set; }
 
         /// <summary>
         /// 导航属性 - 所属课程

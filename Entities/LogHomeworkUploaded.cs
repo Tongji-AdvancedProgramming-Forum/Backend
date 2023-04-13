@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Forum.Entity
+namespace Forum.Entities
 {
     /// <summary>
     /// 管理员上传文件日志

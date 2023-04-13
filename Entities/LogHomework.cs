@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Forum.Entity
+namespace Forum.Entities
 {
     /// <summary>
     /// 管理员导入作业日志

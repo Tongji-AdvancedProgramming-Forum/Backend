@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
-namespace Forum.Entity
+namespace Forum.Entities
 {
     using System;
     using System.ComponentModel.DataAnnotations;
