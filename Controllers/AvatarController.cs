@@ -117,7 +117,7 @@ namespace Forum.Controllers
                 return BadRequest("File is empty or not provided.");
             }
 
-            var uploadFolderPath = Path.Combine(Directory.GetCurrentDirectory(), "Temp", "uploads");
+            var uploadFolderPath = Path.Combine("tmp", "forum", "uploads");
             if (!Directory.Exists(uploadFolderPath))
             {
                 Directory.CreateDirectory(uploadFolderPath);

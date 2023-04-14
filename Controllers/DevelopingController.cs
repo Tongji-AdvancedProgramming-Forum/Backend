@@ -40,5 +40,13 @@ namespace Forum.Controllers
             return Ok(res);
         }
 
+        [HttpGet("testcon")]
+        public async Task<IActionResult> testConcurrency()
+        {
+            if (!_env.IsDevelopment()) return Forbid();
+            await Task.Delay(1000);
+            return Ok();
+        }
+
     }
 }
