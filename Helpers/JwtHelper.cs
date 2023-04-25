@@ -1,5 +1,4 @@
-﻿using System;
-using Microsoft.IdentityModel.Tokens;
+﻿using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -17,16 +16,16 @@ namespace Forum.Helpers
 		/// <summary>
 		/// 创建一个JWT令牌
 		/// </summary>
-		/// <param name="StuNo">学号</param>
-		/// <param name="Role">用户等级，参考Entities.Student注释</param>
-		/// <param name="ExpiresIn">有效期（单位：分钟）</param>
+		/// <param name="stuNo">学号</param>
+		/// <param name="role">用户等级，参考Entities.Student注释</param>
+		/// <param name="expiresIn">有效期（单位：分钟）</param>
 		/// <returns>一个签发的JWT令牌</returns>
-		public string CreateToken(string StuNo, string Role, int ExpiresIn)
+		public string CreateToken(string stuNo, string role, int expiresIn)
 		{
 			var claims = new[]
 			{
-				new Claim(ClaimTypes.Name, StuNo),
-				new Claim(ClaimTypes.Role, Role),
+				new Claim(ClaimTypes.Name, stuNo),
+				new Claim(ClaimTypes.Role, role),
 				new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
 			};
 
@@ -37,16 +36,16 @@ namespace Forum.Helpers
 
 			var signingCredentials = new SigningCredentials(secretKey, algorithm);
 
-			var JwtSecurityToken = new JwtSecurityToken(
+			var jwtSecurityToken = new JwtSecurityToken(
 				issuer: _configuration["Jwt:Issuer"] ?? "SampleIssuer",
                 audience: _configuration["Jwt:Audience"] ?? "SampleAudience",
                 claims: claims,
 				notBefore: DateTime.Now,
-				expires: DateTime.Now.AddMinutes(ExpiresIn),
+				expires: DateTime.Now.AddMinutes(expiresIn),
 				signingCredentials: signingCredentials
 			);
 
-			var token = new JwtSecurityTokenHandler().WriteToken(JwtSecurityToken);
+			var token = new JwtSecurityTokenHandler().WriteToken(jwtSecurityToken);
 
             return token;
 		}

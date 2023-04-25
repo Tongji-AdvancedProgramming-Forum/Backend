@@ -1,5 +1,5 @@
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Processing;
+// using SixLabors.ImageSharp;
+// using SixLabors.ImageSharp.Processing;
 
 namespace Forum.Helpers
 {

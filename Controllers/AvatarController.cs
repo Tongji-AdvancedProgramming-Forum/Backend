@@ -4,7 +4,6 @@ using System.Security.Claims;
 
 using Forum.Helpers;
 using Forum.Services;
-using Forum.DTO.StudentService;
 using Forum.Entities;
 
 namespace Forum.Controllers
@@ -15,20 +14,16 @@ namespace Forum.Controllers
     {
         private readonly JwtHelper _jwtHelper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ForumDb _db;
-        private readonly RedisHelper _redis;
         private readonly QCosHelper _qcos;
-        private StudentService stuService;
+        private readonly StudentService _stuService;
 
         public AvatarController(JwtHelper jwtHelper, ForumDb db, IHttpContextAccessor httpContextAccessor,
-                                    RedisHelper redis, QCosHelper qcos)
+                                    RedisHelper redis, QCosHelper qcos, IConfiguration configuration)
         {
             _jwtHelper = jwtHelper;
             _httpContextAccessor = httpContextAccessor;
-            _db = db;
-            _redis = redis;
             _qcos = qcos;
-            stuService = new StudentService(_db, _redis);
+            _stuService = new StudentService(db, redis, configuration);
         }
 
         /// <summary>
@@ -51,21 +46,21 @@ namespace Forum.Controllers
                     {
                         return Ok(new
                         {
-                            url = await stuService.GetAvatar(stuName)
+                            url = await _stuService.GetAvatar(stuName)
                         });
                     }
                 case "1":
                     {
-                        if (requested == null || requested == "")
+                        if (requested == "")
                             return BadRequest();
                         return Ok(new
                         {
-                            url = await stuService.GetAvatar(requested)
+                            url = await _stuService.GetAvatar(requested)
                         });
                     }
                 case "2":
                     {
-                        if (requests == null || requests.Count == 0)
+                        if (requests.Count == 0)
                             return BadRequest();
                         var response = new List<Object>();
                         foreach (string rid in requests)
@@ -73,7 +68,7 @@ namespace Forum.Controllers
                             response.Add(new
                             {
                                 stuId = rid,
-                                url = await stuService.GetAvatar(rid)
+                                url = await _stuService.GetAvatar(rid)
                             });
                         }
                         return Ok(response);
@@ -95,7 +90,7 @@ namespace Forum.Controllers
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
             var stuName = identity?.FindFirst(ClaimTypes.Name)?.Value ?? "";
 
-            await stuService.SetAvatar(stuName, avatarUrl);
+            await _stuService.SetAvatar(stuName, avatarUrl);
 
             return Ok();
         }
@@ -112,19 +107,19 @@ namespace Forum.Controllers
             var identity = _httpContextAccessor.HttpContext?.User.Identity as ClaimsIdentity;
             var stuName = identity?.FindFirst(ClaimTypes.Name)?.Value ?? "";
 
-            if (file == null || file.Length == 0)
+            if (file.Length == 0)
             {
                 return BadRequest("File is empty or not provided.");
             }
 
-            var uploadFolderPath = "tmp/forum/uploads";
+            var uploadFolderPath = "/tmp/forum/uploads";
             if (!Directory.Exists(uploadFolderPath))
             {
                 Directory.CreateDirectory(uploadFolderPath);
             }
 
             var filePath = Path.Combine(uploadFolderPath, file.FileName);
-            using (var fileStream = new FileStream(filePath, FileMode.Create))
+            await using (var fileStream = new FileStream(filePath, FileMode.Create))
             {
                 await file.CopyToAsync(fileStream);
             }
@@ -149,7 +144,7 @@ namespace Forum.Controllers
                 throw new Exception("服务器内部网络错误，请稍候重试");
             }
 
-            await stuService.SetAvatar(stuName, uploadRes);
+            await _stuService.SetAvatar(stuName, uploadRes);
 
             return Ok(uploadRes);
         }

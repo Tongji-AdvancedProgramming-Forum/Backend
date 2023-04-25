@@ -1,9 +1,6 @@
 using COSXML;
 using COSXML.Auth;
 using COSXML.Transfer;
-using COSXML.Model.Object;
-using COSXML.Model.Bucket;
-using COSXML.CosException;
 
 namespace Forum.Helpers
 {
@@ -12,22 +9,20 @@ namespace Forum.Helpers
         private readonly QCloudCredentialProvider _cosCredentialProvider;
         private readonly CosXmlConfig _cosXmlConfig;
         private readonly string _bucket;
-        private readonly string _region;
         private readonly string _prefix;
 
         /// <summary>
         /// 初始化cos Helper
         /// </summary>
-        /// <param name="s_id">SECRET_ID</param>
-        /// <param name="s_key">SECRET_KEY</param>
+        /// <param name="sId">SECRET_ID</param>
+        /// <param name="sKey">SECRET_KEY</param>
         /// <param name="bucketName">存储桶名</param>
         /// <param name="region">地区</param>
         /// <param name="prefix">网址前缀</param>
-        public QCosHelper(string s_id, string s_key, string bucketName, string region, string prefix)
+        public QCosHelper(string sId, string sKey, string bucketName, string region, string prefix)
         {
-            _cosCredentialProvider = new DefaultQCloudCredentialProvider(s_id, s_key, 600);
+            _cosCredentialProvider = new DefaultQCloudCredentialProvider(sId, sKey, 600);
             _bucket = bucketName;
-            _region = region;
             _prefix = prefix;
             _cosXmlConfig = new CosXmlConfig.Builder()
                                     .IsHttps(true)
@@ -53,7 +48,7 @@ namespace Forum.Helpers
 
             try
             {
-                var result = await transferManager.UploadAsync(uploadTask);
+                await transferManager.UploadAsync(uploadTask);
                 return _prefix + cosPath;
             }
             catch (Exception e)

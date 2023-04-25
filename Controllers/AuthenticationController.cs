@@ -6,7 +6,6 @@ using Forum.Helpers;
 using Forum.Services;
 using Forum.DTO.StudentService;
 using Forum.Entities;
-using Microsoft.AspNetCore.Http;
 
 namespace Forum.Controllers
 {
@@ -16,17 +15,14 @@ namespace Forum.Controllers
     {
         private readonly JwtHelper _jwtHelper;
         private readonly IHttpContextAccessor _httpContextAccessor;
-        private readonly ForumDb _db;
-        private readonly RedisHelper _redis;
-        private StudentService service;
+        private readonly StudentService _service;
 
-        public AuthenticationController(JwtHelper jwtHelper, ForumDb db, IHttpContextAccessor httpContextAccessor, RedisHelper redis)
+        public AuthenticationController(JwtHelper jwtHelper, ForumDb db,
+            IHttpContextAccessor httpContextAccessor, RedisHelper redis, IConfiguration configuration)
         {
             _jwtHelper = jwtHelper;
             _httpContextAccessor = httpContextAccessor;
-            _db = db;
-            _redis = redis;
-            service = new StudentService(_db, _redis);
+            _service = new StudentService(db, redis, configuration);
         }
 
         [HttpPost("login")]
@@ -34,7 +30,7 @@ namespace Forum.Controllers
         {
             try
             {
-                var student = await service.Login(_httpContextAccessor.HttpContext!, request);
+                var student = await _service.Login(_httpContextAccessor.HttpContext!, request);
                 if (student == null)
                 {
                     return Unauthorized(new LoginResponse

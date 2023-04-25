@@ -25,7 +25,7 @@ namespace Forum.Controllers
         }
 
         [HttpGet("testrds")]
-        public async Task<IActionResult> testRedis()
+        public async Task<IActionResult> TestRedis()
         {
             if (!_env.IsDevelopment()) return Forbid();
             var res = await _redis.GetDatabase().StringGetAsync("heyhey");
@@ -33,7 +33,7 @@ namespace Forum.Controllers
         }
 
         [HttpGet("testsql")]
-        public async Task<IActionResult> testSQL()
+        public async Task<IActionResult> TestSql()
         {
             if (!_env.IsDevelopment()) return Forbid();
             var res = await _db.term.ToListAsync();
@@ -41,7 +41,7 @@ namespace Forum.Controllers
         }
 
         [HttpGet("testcon")]
-        public async Task<IActionResult> testConcurrency()
+        public async Task<IActionResult> TestConcurrency()
         {
             if (!_env.IsDevelopment()) return Forbid();
             await Task.Delay(1000);

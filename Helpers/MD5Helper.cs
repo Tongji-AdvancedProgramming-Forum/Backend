@@ -1,5 +1,4 @@
-﻿using System;
-using System.Text;
+﻿using System.Text;
 using System.Security.Cryptography;
 
 namespace Forum.Helpers
@@ -18,9 +17,9 @@ namespace Forum.Helpers
             byte[] hashBytes = md5.ComputeHash(inputBytes);
 
             StringBuilder sb = new();
-            for (int i = 0; i < hashBytes.Length; i++)
+            foreach (var b in hashBytes)
             {
-                sb.Append(hashBytes[i].ToString("x2")); // 将每个字节转换为16进制字符串
+                sb.Append(b.ToString("x2")); // 将每个字节转换为16进制字符串
             }
             return sb.ToString();
         }
