@@ -26,18 +26,18 @@ namespace Forum.Entities
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            Term.configureDb(modelBuilder);
-            Course.configureDb(modelBuilder);
-            Student.configureDb(modelBuilder);
-            LogLogin.configureDb(modelBuilder);
-            LogResetPassword.configureDb(modelBuilder);
-            HomeworkUploaded.configureDb(modelBuilder);
-            LogHomeworkUploaded.configureDb(modelBuilder);
-            Homework.configureDb(modelBuilder);
-            LogHomework.configureDb(modelBuilder);
-            Tag.configureDb(modelBuilder);
-            Post.configureDb(modelBuilder);
-            LogPost.configureDb(modelBuilder);
+            Term.ConfigureDb(modelBuilder);
+            Course.ConfigureDb(modelBuilder);
+            Student.ConfigureDb(modelBuilder);
+            LogLogin.ConfigureDb(modelBuilder);
+            LogResetPassword.ConfigureDb(modelBuilder);
+            HomeworkUploaded.ConfigureDb(modelBuilder);
+            LogHomeworkUploaded.ConfigureDb(modelBuilder);
+            Homework.ConfigureDb(modelBuilder);
+            LogHomework.ConfigureDb(modelBuilder);
+            Tag.ConfigureDb(modelBuilder);
+            Post.ConfigureDb(modelBuilder);
+            LogPost.ConfigureDb(modelBuilder);
         }
 
         /// <summary>
@@ -55,7 +55,7 @@ namespace Forum.Entities
             var userAgentParam = new MySqlParameter("@in_useragent", userAgent);
             var commentParam = new MySqlParameter("@in_comment", comment);
 
-            int result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_login(@in_sno, @in_ipaddr, @in_useragent, @in_comment)",
+            var result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_login(@in_sno, @in_ipaddr, @in_useragent, @in_comment)",
                 snoParam, ipAddrParam, userAgentParam, commentParam);
             return result;
         }
@@ -73,7 +73,7 @@ namespace Forum.Entities
             var ipaddrParam = new MySqlParameter("@in_ipaddr", ipaddr);
             var commentParam = new MySqlParameter("@in_comment", comment);
 
-            int result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_homework_uploaded(@in_opno, @in_ipaddr, @in_comment)", opnoParam, ipaddrParam, commentParam);
+            var result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_homework_uploaded(@in_opno, @in_ipaddr, @in_comment)", opnoParam, ipaddrParam, commentParam);
             return result;
         }
 
@@ -90,7 +90,7 @@ namespace Forum.Entities
             var ipaddrParam = new MySqlParameter("@in_ipaddr", ipaddr);
             var commentParam = new MySqlParameter("@in_comment", comment);
 
-            int result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_homework(@in_opno, @in_ipaddr, @in_comment)", opnoParam, ipaddrParam, commentParam);
+            var result = await Database.ExecuteSqlRawAsync("CALL proc_writelog_homework(@in_opno, @in_ipaddr, @in_comment)", opnoParam, ipaddrParam, commentParam);
             return result;
         }
     }

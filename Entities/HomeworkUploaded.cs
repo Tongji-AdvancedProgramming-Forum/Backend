@@ -98,7 +98,7 @@ namespace Forum.Entities
         /// 配置数据库关系
         /// </summary>
         /// <param name="modelBuilder">ModelBuilder实例</param>
-        public static void configureDb(ModelBuilder modelBuilder)
+        public static void ConfigureDb(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<HomeworkUploaded>()
                 .HasKey(h => new { h.Term, h.CCode, h.Id });

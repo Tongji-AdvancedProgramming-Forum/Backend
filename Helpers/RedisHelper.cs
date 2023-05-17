@@ -19,7 +19,7 @@ namespace Forum.Helpers
         /// 数据库编号-用途对应：
         /// 1 - 用户信息
         /// 2 - 用户未读通知信息
-        /// 【无论如何也不要使用默认数据库】
+        /// 【最好不要使用默认数据库】
         /// </summary>
         /// <param name="db">数据库编号</param>
         /// <returns></returns>

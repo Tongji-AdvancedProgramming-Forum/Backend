@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
@@ -69,7 +68,7 @@ namespace Forum.Entities
         [JsonIgnore]
         public Term term { get; set; } = null!;
 
-        public static void configureDb(ModelBuilder modelBuilder)
+        public static void ConfigureDb(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Course>()
                 .HasKey(c => new { c.Code, c.Term });
